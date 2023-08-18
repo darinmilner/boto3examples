@@ -62,3 +62,43 @@ else:
     # attach to VPC
     ec2.attach_internet_gateway(VpcId=vpc_id, InternetGatewayId=ig_id)
     print(f"Internet Gateway {ig_name} with ID {ig_id} has been created")
+
+
+# create a route table and public route
+rt_response = ec2.create_route_table(
+    VpcId=vpc_id,
+)
+
+rt_id = rt_response["RouteTable"]["RouteTableId"]
+route = ec2.create_route(
+    RouteTableId=rt_id,
+    DestinationCidrBlock="0.0.0.0/0",
+    GatewayId=ig_id
+)
+
+print(f"Route table {rt_id} has been created")
+
+# create 3 subnets
+subnet_1 = ec2.create_subnet(
+    VpcId=vpc_id,
+    CidrBlock= "10.0.1.0/24",
+    AvailabilityZone="us-east-1a"
+)
+
+subnet_2 = ec2.create_subnet(
+    VpcId=vpc_id,
+    CidrBlock= "10.0.2.0/24",
+    AvailabilityZone="us-east-1b"
+)
+
+subnet_3 = ec2.create_subnet(
+    VpcId=vpc_id,
+    CidrBlock= "10.0.3.0/24",
+    AvailabilityZone="us-east-1c"
+)
+
+subnet1_id = subnet_1["Subnet"]["SubnetId"]
+subnet2_id = subnet_2["Subnet"]["SubnetId"]
+subnet3_id = subnet_3["Subnet"]["SubnetId"]
+print(f"Subnets are created. subnet 1 Id  = {subnet1_id} subnet 2 id = {subnet2_id} subnet 3 id = {subnet3_id}")
+

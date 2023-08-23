@@ -1,0 +1,14 @@
+{
+    "Records": [
+        {
+            "s3": {
+                "bucket" :{
+                    "name": "s3-bucketname"
+                },
+                "object": {
+                    "key": "billing-csv-file.csv"
+                }
+            }
+        }
+    ]
+}

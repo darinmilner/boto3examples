@@ -1,0 +1,10 @@
+{
+    "version": "2012-10-17",
+    "statement" : [
+        {
+            "Effect": "Allow",
+            "Action": "rds-data:ExecuteStatement",
+            "Resource": "db-cluster-arn"
+        }
+    ]
+}
